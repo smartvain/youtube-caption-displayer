@@ -1,0 +1,24 @@
+{
+    "name": "smartvain/youtube-caption-downloader",
+    "description": "This package used for downloading youtube caption.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Smart Vain",
+            "email": "zlc.blue15210@gmail.com",
+            "homepage": "https://github.com/smartvain"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Smartvain\\YoutubeCaptionDownloader\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^7.3|^8.0",
+        "laravel/framework": "^8.75",
+        "guzzlehttp/guzzle": "^7.0.1"
+    }
+}
