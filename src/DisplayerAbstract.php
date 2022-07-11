@@ -3,7 +3,8 @@
 namespace Smartvain\YoutubeCaptionDisplayer;
 
 use GuzzleHttp\Client;
-use Smartvain\YoutubeCaptionDisplayer\Exception\CaptionTrackNotFoundException;
+use Smartvain\YoutubeCaptionDisplayer\Exception\CaptionTrackNotExist;
+use Smartvain\YoutubeCaptionDisplayer\Exception\CaptionTrackNotFound;
 
 abstract class DisplayerAbstract
 {
@@ -48,6 +49,10 @@ abstract class DisplayerAbstract
         $regex = '/"captionTracks":.*isTranslatable":(true|false)}]/';
         preg_match($regex, $html, $matches);
         
+        if (!$matches) {
+            throw new CaptionTrackNotExist("Caption track doesn't exist in the youtube video entered.");
+        }
+
         return json_decode("{{$matches[0]}}")->captionTracks;
     }
 
