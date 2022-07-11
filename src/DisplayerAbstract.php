@@ -123,7 +123,7 @@ abstract class DisplayerAbstract
         });
 
         if (!$caption_track) {
-            throw new CaptionTrackNotFoundException('Caption track was not found for the lang code entered.');
+            throw new CaptionTrackNotFound('Caption track was not found for the lang code entered.');
         }
 
         return current($caption_track);
