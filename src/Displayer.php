@@ -21,11 +21,13 @@ class Displayer extends DisplayerAbstract
         $caption_tracks = self::extractCaptionTracks($html);
         
         $lang_list = collect();
-        foreach ($caption_tracks as $item) {
-            $lang_list->push([
-                'text' => $item->name->simpleText,
-                'code' => $item->languageCode
-            ]);
+        if ($caption_tracks) {
+            foreach ($caption_tracks as $item) {
+                $lang_list->push([
+                    'text' => $item->name->simpleText,
+                    'code' => $item->languageCode
+                ]);
+            }
         }
         
         return $lang_list;
