@@ -2,8 +2,6 @@
 
 namespace Smartvain\YoutubeCaptionDisplayer\Tests;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Smartvain\YoutubeCaptionDisplayer\Displayer;
 use Tests\TestCase;
 
