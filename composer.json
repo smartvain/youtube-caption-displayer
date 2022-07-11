@@ -1,5 +1,5 @@
 {
-    "name": "smartvain/youtube-caption-downloader",
+    "name": "smartvain/youtube-caption-displayer",
     "description": "This package used for downloading youtube caption.",
     "type": "library",
     "license": "MIT",
@@ -13,7 +13,7 @@
     "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
-            "Smartvain\\YoutubeCaptionDownloader\\": "src/"
+            "Smartvain\\YoutubeCaptionDisplayer\\": "src/"
         }
     },
     "require": {
