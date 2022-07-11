@@ -8,7 +8,7 @@ use Smartvain\YoutubeCaptionDisplayer\Exception\CaptionTrackNotFoundException;
 abstract class DisplayerAbstract
 {
     /**
-     * Get contents from url with async request
+     * Get contents from url with async request.
      *
      * @param string $url
      *
@@ -22,7 +22,7 @@ abstract class DisplayerAbstract
     }
 
     /**
-     * Extract video-id from url of a particular youtube video
+     * Extract video-id from url of a particular youtube video.
      *
      * @param string $url
      *
@@ -37,7 +37,7 @@ abstract class DisplayerAbstract
     }
 
     /**
-     * Extract caption tracks from content
+     * Extract caption tracks from content.
      *
      * @param string $html_content
      *
@@ -52,7 +52,7 @@ abstract class DisplayerAbstract
     }
 
     /**
-     * Extract caption as array from content
+     * Extract caption as array from content.
      *
      * @param string $xml_content
      *
@@ -90,7 +90,7 @@ abstract class DisplayerAbstract
     }
 
     /**
-     * Adjust caption
+     * Adjust caption.
      *
      * @param string $caption
      *
@@ -107,7 +107,7 @@ abstract class DisplayerAbstract
     }
 
     /**
-     * Filter caption tracks by lang code
+     * Filter caption tracks by lang code.
      *
      * @param array $caption_tracks
      * @param string $lang_code

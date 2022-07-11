@@ -7,7 +7,7 @@ use Illuminate\Support\Collection;
 class Displayer extends DisplayerAbstract
 {
     /**
-     * Get a list of languages used in a particular youtube video
+     * Get a list of languages used in a particular youtube video.
      *
      * @param string $url
      *
@@ -32,7 +32,7 @@ class Displayer extends DisplayerAbstract
     }
 
     /**
-     * Get captions as collection from selected lang code
+     * Get captions as collection from selected lang code.
      *
      * @param string $url
      * @param string $lang_code
