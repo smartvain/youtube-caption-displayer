@@ -77,7 +77,7 @@ abstract class DisplayerAbstract
             $durRegex = '/dur="([\d.]+)"/';
             preg_match($durRegex, $caption, $dur);
             
-            $caption = $this->adjustCaption($caption);
+            $caption = self::adjustCaption($caption);
             
             $captions = array_replace($captions, [$idx => [
                 'start' => $start[1],

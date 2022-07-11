@@ -13,12 +13,12 @@ class Displayer extends DisplayerAbstract
      *
      * @return Collection
      */
-    public function getLangList(string $url): Collection
+    public static function getLangList(string $url): Collection
     {
-        $video_id = $this->extractVideoId($url);
+        $video_id = self::extractVideoId($url);
         
-        $html = $this->fetchUrlContent("https://www.youtube.com/watch?v={$video_id}");
-        $caption_tracks = $this->extractCaptionTracks($html);
+        $html = self::fetchUrlContent("https://www.youtube.com/watch?v={$video_id}");
+        $caption_tracks = self::extractCaptionTracks($html);
         
         $lang_list = collect();
         foreach ($caption_tracks as $item) {
@@ -39,17 +39,17 @@ class Displayer extends DisplayerAbstract
      *
      * @return Collection
      */
-    public function getCaptions(string $url, string $lang_code): Collection
+    public static function getCaptions(string $url, string $lang_code): Collection
     {
-        $video_id = $this->extractVideoId($url);
+        $video_id = self::extractVideoId($url);
         
-        $html = $this->fetchUrlContent("https://www.youtube.com/watch?v={$video_id}");
-        $caption_tracks = $this->extractCaptionTracks($html);
+        $html = self::fetchUrlContent("https://www.youtube.com/watch?v={$video_id}");
+        $caption_tracks = self::extractCaptionTracks($html);
         
-        $caption_track = $this->filterByLangCode($caption_tracks, $lang_code);
+        $caption_track = self::filterByLangCode($caption_tracks, $lang_code);
         
-        $xml = $this->fetchUrlContent($caption_track->baseUrl);
-        $captions = $this->extractCaptions($xml);
+        $xml = self::fetchUrlContent($caption_track->baseUrl);
+        $captions = self::extractCaptions($xml);
 
         return collect($captions);
     }
