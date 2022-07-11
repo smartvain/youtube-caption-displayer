@@ -3,7 +3,6 @@
 namespace Smartvain\YoutubeCaptionDisplayer;
 
 use Illuminate\Support\Collection;
-use Smartvain\YoutubeCaptionDisplayer\Exception\CaptionTrackNotFoundException;
 
 class Displayer extends DisplayerAbstract
 {
@@ -39,8 +38,6 @@ class Displayer extends DisplayerAbstract
      * @param string $lang_code
      *
      * @return Collection
-     *
-     * @throws CaptionTrackNotFoundException
      */
     public function getCaptions(string $url, string $lang_code): Collection
     {
@@ -49,16 +46,8 @@ class Displayer extends DisplayerAbstract
         $html = $this->fetchUrlContent("https://www.youtube.com/watch?v={$video_id}");
         $caption_tracks = $this->extractCaptionTracks($html);
         
-        $caption_track = array_filter($caption_tracks, function ($item) use ($lang_code) {
-            return $item->languageCode === $lang_code;
-        });
-
-        if (!$caption_track) {
-            throw new CaptionTrackNotFoundException('Caption track was not found for the lang code entered.');
-        }
-
-        $caption_track = current($caption_track);
-
+        $caption_track = $this->filterByLangCode($caption_tracks, $lang_code);
+        
         $xml = $this->fetchUrlContent($caption_track->baseUrl);
         $captions = $this->extractCaptions($xml);
 

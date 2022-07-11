@@ -3,6 +3,7 @@
 namespace Smartvain\YoutubeCaptionDisplayer;
 
 use GuzzleHttp\Client;
+use Smartvain\YoutubeCaptionDisplayer\Exception\CaptionTrackNotFoundException;
 
 abstract class DisplayerAbstract
 {
@@ -103,5 +104,28 @@ abstract class DisplayerAbstract
         $caption = preg_replace('/&#39;/', "'", $caption);
 
         return $caption;
+    }
+
+    /**
+     * filter caption tracks by lang code
+     *
+     * @param array $caption_tracks
+     * @param string $lang_code
+     *
+     * @return object
+     *
+     * @throws CaptionTrackNotFoundException
+     */
+    protected function filterByLangCode(array $caption_tracks, string $lang_code): object
+    {
+        $caption_track = array_filter($caption_tracks, function ($item) use ($lang_code) {
+            return $item->languageCode === $lang_code;
+        });
+
+        if (!$caption_track) {
+            throw new CaptionTrackNotFoundException('Caption track was not found for the lang code entered.');
+        }
+
+        return current($caption_track);
     }
 }
