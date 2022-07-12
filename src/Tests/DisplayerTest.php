@@ -3,6 +3,7 @@
 namespace Smartvain\YoutubeCaptionDisplayer\Tests;
 
 use Smartvain\YoutubeCaptionDisplayer\Displayer;
+use Smartvain\YoutubeCaptionDisplayer\Exception\CaptionTrackNotFound;
 use Tests\TestCase;
 
 class DisplayerTest extends TestCase
@@ -22,7 +23,7 @@ class DisplayerTest extends TestCase
      *
      * @return void
      */
-    public function testCountLangList()
+    public function testLangListCount()
     {
         $lang_list = Displayer::getLangList(self::$caption_exist_url);
 
@@ -34,7 +35,7 @@ class DisplayerTest extends TestCase
      *
      * @return void
      */
-    public function testLangListHasKey()
+    public function testLangListHasKeys()
     {
         $lang_list = Displayer::getLangList(self::$caption_exist_url);
 
@@ -45,7 +46,7 @@ class DisplayerTest extends TestCase
     }
 
     /**
-     * Test when lang list not exist.
+     * Test if lang list doesn't exist.
      *
      * @return void
      */
@@ -54,5 +55,52 @@ class DisplayerTest extends TestCase
         $lang_list = Displayer::getLangList(self::$caption_not_exist_url);
 
         $this->assertTrue(count($lang_list) === 0);
+    }
+
+    /**
+     * Test to get captions.
+     *
+     * @return void
+     */
+    public function testCaptionsCount()
+    {
+        $lang_list = Displayer::getLangList(self::$caption_exist_url);
+        $lang_code = $lang_list->first()['code'];
+        
+        $captions = Displayer::getCaptionsWithSeconds(self::$caption_exist_url, $lang_code);
+
+        $this->assertTrue(count($captions) > 0);
+    }
+
+    /**
+     * Test if captions has particular keys.
+     *
+     * @return void
+     */
+    public function testCaptionsHasKeys()
+    {
+        $lang_list = Displayer::getLangList(self::$caption_exist_url);
+        $lang_code = $lang_list->first()['code'];
+
+        $captions = Displayer::getCaptionsWithSeconds(self::$caption_exist_url, $lang_code);
+
+        $captions->each(function ($caption) {
+            $this->assertArrayHasKey('text', $caption);
+            $this->assertArrayHasKey('start', $caption);
+            $this->assertArrayHasKey('dur', $caption);
+        });
+    }
+
+    /**
+     * Test throwing exception if captions doesn't exist with entered the lang code.
+     *
+     * @return void
+     */
+    public function testCaptionsNotExist()
+    {
+        $this->expectException(CaptionTrackNotFound::class);
+
+        $lang_code = 'nothing';
+        Displayer::getCaptionsWithSeconds(self::$caption_exist_url, $lang_code);
     }
 }
