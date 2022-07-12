@@ -25,6 +25,6 @@ Get the language list used for youtube video subtitles with **`getLangList()`**.
 
 Next, since the obtained language list contains **lang-code**, use it to get subtitles by **`getCaptionsWithSeconds()`** or **`getCaptionText()`**.
 
-If it is a youtube video without subtitles, return Null.
+If it is a youtube video without subtitles, return empty Collection.
 
 It's so easy.
