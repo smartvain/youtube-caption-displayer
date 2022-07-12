@@ -11,7 +11,7 @@ class DisplayerTest extends TestCase
     /**
      * @var string
      */
-    private static string $caption_exist_url = 'https://www.youtube.com/watch?v=zOjov-2OZ0E&t=7s';
+    private static string $caption_exist_url = 'https://www.youtube.com/watch?v=ouf7rXDlkDk';
 
     /**
      * @var string
@@ -117,5 +117,48 @@ class DisplayerTest extends TestCase
 
         $lang_code = 'nothing-code';
         Displayer::getCaptionsWithSeconds(self::$caption_exist_url, $lang_code);
+    }
+
+    /**
+     * Test to get captions in one sentence.
+     *
+     * @return void
+     */
+    public function testCaptionText()
+    {
+        $lang_list = Displayer::getLangList(self::$caption_exist_url);
+        $lang_code = $lang_list->first()['code'];
+        
+        $caption = Displayer::getCaptionText(self::$caption_exist_url, $lang_code);
+
+        $this->assertNotNull($caption);
+    }
+    
+    /**
+     * Test if caption text doesn't exist.
+     *
+     * @return void
+     */
+    public function testCaptionTextNotExist()
+    {
+        $lang_list = Displayer::getLangList(self::$caption_exist_url);
+        $lang_code = $lang_list->first()['code'];
+        
+        $caption = Displayer::getCaptionText(self::$caption_not_exist_url, $lang_code);
+    
+        $this->assertNull($caption);
+    }
+
+    /**
+     * Test that raise the exception when a wrong lang code is entered.
+     *
+     * @return void
+     */
+    public function testCaptionTextWrongLangCode()
+    {
+        $this->expectException(CaptionTrackNotFound::class);
+
+        $lang_code = 'nothing-code';
+        Displayer::getCaptionText(self::$caption_exist_url, $lang_code);
     }
 }
