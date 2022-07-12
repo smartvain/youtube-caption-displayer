@@ -48,10 +48,12 @@ class Displayer extends DisplayerAbstract
         $html = self::fetchUrlContent("https://www.youtube.com/watch?v={$video_id}");
         $caption_tracks = self::extractCaptionTracks($html);
         
-        $caption_track = self::filterByLangCode($caption_tracks, $lang_code);
-        
-        $xml = self::fetchUrlContent($caption_track->baseUrl);
-        $captions = self::extractCaptionsWithSeconds($xml);
+        $captions = null;
+        if ($caption_tracks) {
+            $caption_track = self::filterByLangCode($caption_tracks, $lang_code);
+            $xml = self::fetchUrlContent($caption_track->baseUrl);
+            $captions = self::extractCaptionsWithSeconds($xml);
+        }
 
         return collect($captions);
     }
