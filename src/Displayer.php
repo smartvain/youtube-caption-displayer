@@ -15,10 +15,7 @@ class Displayer extends DisplayerAbstract
      */
     public static function getLangList(string $url): Collection
     {
-        $video_id = self::extractVideoId($url);
-        
-        $html = self::fetchUrlContent("https://www.youtube.com/watch?v={$video_id}");
-        $caption_tracks = self::extractCaptionTracks($html);
+        $caption_tracks = self::extractCaptionTracksFromUrl($url);
         
         $lang_list = collect();
         if ($caption_tracks) {
@@ -43,10 +40,7 @@ class Displayer extends DisplayerAbstract
      */
     public static function getCaptionsWithSeconds(string $url, string $lang_code): Collection
     {
-        $video_id = self::extractVideoId($url);
-        
-        $html = self::fetchUrlContent("https://www.youtube.com/watch?v={$video_id}");
-        $caption_tracks = self::extractCaptionTracks($html);
+        $caption_tracks = self::extractCaptionTracksFromUrl($url);
         
         $captions = null;
         if ($caption_tracks) {

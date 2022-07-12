@@ -8,20 +8,6 @@ use Smartvain\YoutubeCaptionDisplayer\Exception\CaptionTrackNotFound;
 abstract class DisplayerAbstract
 {
     /**
-     * Get contents from url with async request.
-     *
-     * @param string $url
-     *
-     * @return string
-     */
-    protected function fetchUrlContent(string $url): string
-    {
-        $client = new Client();
-        
-        return $client->requestAsync('GET', $url)->wait()->getBody()->getContents();
-    }
-
-    /**
      * Extract video-id from url of a particular youtube video.
      *
      * @param string $url
@@ -37,9 +23,23 @@ abstract class DisplayerAbstract
     }
 
     /**
+     * Get contents from url with async request.
+     *
+     * @param string $url
+     *
+     * @return string
+     */
+    protected function fetchUrlContent(string $url): string
+    {
+        $client = new Client();
+        
+        return $client->requestAsync('GET', $url)->wait()->getBody()->getContents();
+    }
+
+    /**
      * Extract caption tracks from content.
      *
-     * @param string $html_content
+     * @param string $html
      *
      * @return array|null
      */
@@ -90,7 +90,7 @@ abstract class DisplayerAbstract
     /**
      * Extract caption as array from content.
      *
-     * @param string $xml_content
+     * @param string $xml
      *
      * @return array
      */
