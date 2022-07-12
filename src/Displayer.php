@@ -16,7 +16,7 @@ class Displayer extends DisplayerAbstract
     public static function getLangList(string $url): Collection
     {
         $caption_tracks = self::extractCaptionTracksFromUrl($url);
-        
+
         $lang_list = collect();
         if ($caption_tracks) {
             foreach ($caption_tracks as $item) {
@@ -26,7 +26,7 @@ class Displayer extends DisplayerAbstract
                 ]);
             }
         }
-        
+
         return $lang_list;
     }
 
@@ -41,7 +41,7 @@ class Displayer extends DisplayerAbstract
     public static function getCaptionsWithSeconds(string $url, string $lang_code): Collection
     {
         $caption_tracks = self::extractCaptionTracksFromUrl($url);
-        
+
         $captions = null;
         if ($caption_tracks) {
             $caption_track = self::filterByLangCode($caption_tracks, $lang_code);
@@ -63,14 +63,14 @@ class Displayer extends DisplayerAbstract
     public static function getCaptionText(string $url, string $lang_code): ?string
     {
         $caption_tracks = self::extractCaptionTracksFromUrl($url);
-        
+
         $caption = null;
         if ($caption_tracks) {
             $caption_track = self::filterByLangCode($caption_tracks, $lang_code);
             $xml = self::fetchUrlContent($caption_track->baseUrl);
             $caption = self::extractCaptionText($xml);
         }
-        
+
         return $caption;
     }
 }

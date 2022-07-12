@@ -32,7 +32,7 @@ abstract class DisplayerAbstract
     protected function fetchUrlContent(string $url): string
     {
         $client = new Client();
-        
+
         return $client->requestAsync('GET', $url)->wait()->getBody()->getContents();
     }
 
@@ -47,12 +47,12 @@ abstract class DisplayerAbstract
     {
         $regex = '/"captionTracks":.*isTranslatable":(true|false)}]/';
         preg_match($regex, $html, $matches);
-        
+
         return $matches
             ? json_decode("{{$matches[0]}}")->captionTracks
             : null;
     }
-    
+
     /**
      * Extract caption tracks from url.
      *
@@ -98,7 +98,7 @@ abstract class DisplayerAbstract
     {
         $xml = preg_replace('/<\?xml version="[\d.]+" encoding=".+" \?><transcript>/', '', $xml);
         $xml = str_replace('</transcript>', '', $xml);
-        
+
         $captions = explode('</text>', $xml);
 
         foreach ($captions as $idx => $caption) {
@@ -106,15 +106,15 @@ abstract class DisplayerAbstract
                 unset($captions[$idx]);
                 continue;
             }
-            
+
             $startRegex = '/start="([\d.]+)"/';
             preg_match($startRegex, $caption, $start);
-            
+
             $durRegex = '/dur="([\d.]+)"/';
             preg_match($durRegex, $caption, $dur);
-            
+
             $caption = self::adjustCaption($caption);
-            
+
             $captions = array_replace($captions, [$idx => [
                 'text'  => $caption,
                 'start' => $start[1],
