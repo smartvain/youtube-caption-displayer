@@ -1,6 +1,6 @@
 {
     "name": "smartvain/youtube-caption-displayer",
-    "description": "This package used for downloading youtube caption.",
+    "description": "This package allows you to get subtitles from youtube.",
     "type": "library",
     "license": "MIT",
     "authors": [
