@@ -34,7 +34,7 @@ class Displayer extends DisplayerAbstract
     }
 
     /**
-     * Get captions as collection from selected lang code.
+     * Get captions as collection from entered lang code.
      *
      * @param string $url
      * @param string $lang_code
