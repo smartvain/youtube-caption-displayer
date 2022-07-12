@@ -31,6 +31,18 @@ class DisplayerTest extends TestCase
     }
 
     /**
+     * Test if lang list doesn't exist.
+     *
+     * @return void
+     */
+    public function testLangListNotExist()
+    {
+        $lang_list = Displayer::getLangList(self::$caption_not_exist_url);
+
+        $this->assertTrue(count($lang_list) === 0);
+    }
+
+    /**
      * Test if lang list has particular keys.
      *
      * @return void
@@ -46,18 +58,6 @@ class DisplayerTest extends TestCase
     }
 
     /**
-     * Test if lang list doesn't exist.
-     *
-     * @return void
-     */
-    public function testLangListNotExist()
-    {
-        $lang_list = Displayer::getLangList(self::$caption_not_exist_url);
-
-        $this->assertTrue(count($lang_list) === 0);
-    }
-
-    /**
      * Test to get captions.
      *
      * @return void
@@ -70,6 +70,21 @@ class DisplayerTest extends TestCase
         $captions = Displayer::getCaptionsWithSeconds(self::$caption_exist_url, $lang_code);
 
         $this->assertTrue(count($captions) > 0);
+    }
+    
+    /**
+     * Test if captions doesn't exist.
+     *
+     * @return void
+     */
+    public function testCaptionsNotExist()
+    {
+        $lang_list = Displayer::getLangList(self::$caption_exist_url);
+        $lang_code = $lang_list->first()['code'];
+        
+        $captions = Displayer::getCaptionsWithSeconds(self::$caption_not_exist_url, $lang_code);
+    
+        $this->assertTrue(count($captions) === 0);
     }
 
     /**
@@ -92,15 +107,15 @@ class DisplayerTest extends TestCase
     }
 
     /**
-     * Test throwing exception if captions doesn't exist with entered the lang code.
+     * Test that raise the exception when a wrong lang code is entered.
      *
      * @return void
      */
-    public function testCaptionsNotExist()
+    public function testCaptionsWrongLangCode()
     {
         $this->expectException(CaptionTrackNotFound::class);
 
-        $lang_code = 'nothing';
+        $lang_code = 'nothing-code';
         Displayer::getCaptionsWithSeconds(self::$caption_exist_url, $lang_code);
     }
 }
