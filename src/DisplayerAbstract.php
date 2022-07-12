@@ -135,7 +135,7 @@ abstract class DisplayerAbstract
     private function adjustCaption($caption): string
     {
         $caption = trim($caption);
-        $caption = preg_replace('/<text.+>/', '', $caption);
+        $caption = preg_replace('/<text.+?>/', '', $caption);
         $caption = preg_replace('/&amp;/', '&', $caption);
         $caption = preg_replace('/&#39;/', "'", $caption);
 
