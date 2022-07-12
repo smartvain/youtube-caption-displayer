@@ -41,7 +41,7 @@ class Displayer extends DisplayerAbstract
      *
      * @return Collection
      */
-    public static function getCaptions(string $url, string $lang_code): Collection
+    public static function getCaptionsWithSeconds(string $url, string $lang_code): Collection
     {
         $video_id = self::extractVideoId($url);
         
@@ -51,7 +51,7 @@ class Displayer extends DisplayerAbstract
         $caption_track = self::filterByLangCode($caption_tracks, $lang_code);
         
         $xml = self::fetchUrlContent($caption_track->baseUrl);
-        $captions = self::extractCaptions($xml);
+        $captions = self::extractCaptionsWithSeconds($xml);
 
         return collect($captions);
     }

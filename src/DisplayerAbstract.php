@@ -60,7 +60,7 @@ abstract class DisplayerAbstract
      *
      * @return array
      */
-    protected function extractCaptions(string $xml): array
+    protected function extractCaptionsWithSeconds(string $xml): array
     {
         $xml = preg_replace('/<\?xml version="[\d.]+" encoding=".+" \?><transcript>/', '', $xml);
         $xml = str_replace('</transcript>', '', $xml);
@@ -82,9 +82,9 @@ abstract class DisplayerAbstract
             $caption = self::adjustCaption($caption);
             
             $captions = array_replace($captions, [$idx => [
+                'text'  => $caption,
                 'start' => $start[1],
-                'dur'   => $dur[1],
-                'text'  => $caption
+                'dur'   => $dur[1]
             ]]);
         }
 
