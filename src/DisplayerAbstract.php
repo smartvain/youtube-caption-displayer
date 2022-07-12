@@ -52,6 +52,22 @@ abstract class DisplayerAbstract
             ? json_decode("{{$matches[0]}}")->captionTracks
             : null;
     }
+    
+    /**
+     * Extract caption tracks from url.
+     *
+     * @param string $url
+     *
+     * @return array|null
+     */
+    protected function extractCaptionTracksFromUrl(string $url): ?array
+    {
+        $video_id = self::extractVideoId($url);
+        $html = self::fetchUrlContent("https://www.youtube.com/watch?v={$video_id}");
+
+        return self::extractCaptionTracks($html);
+    }
+
 
     /**
      * Extract caption as array from content.
