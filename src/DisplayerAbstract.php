@@ -68,6 +68,24 @@ abstract class DisplayerAbstract
         return self::extractCaptionTracks($html);
     }
 
+    /**
+     * Extract caption in one sentence from content.
+     *
+     * @param string $xml
+     *
+     * @return string
+     */
+    protected function extractCaptionText(string $xml): string
+    {
+        $xml = preg_replace('/<\?xml version="[\d.]+" encoding=".+" \?><transcript>/', '', $xml);
+        $xml = str_replace('</transcript>', '', $xml);
+        $xml = str_replace('</text>', ' ', $xml);
+        $caption = self::adjustCaption($xml);
+        $caption = preg_replace('/　/', ' ', $caption);
+        $caption = preg_replace('/\s+/', ' ', $caption);
+
+        return $caption;
+    }
 
     /**
      * Extract caption as array from content.
