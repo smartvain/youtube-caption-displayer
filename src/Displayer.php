@@ -57,4 +57,26 @@ class Displayer extends DisplayerAbstract
 
         return collect($captions);
     }
+
+    /**
+     * Get caption in one sentence from entered lang code.
+     *
+     * @param string $url
+     * @param string $lang_code
+     *
+     * @return string|null
+     */
+    public static function getCaptionText(string $url, string $lang_code): ?string
+    {
+        $caption_tracks = self::extractCaptionTracksFromUrl($url);
+        
+        $caption = null;
+        if ($caption_tracks) {
+            $caption_track = self::filterByLangCode($caption_tracks, $lang_code);
+            $xml = self::fetchUrlContent($caption_track->baseUrl);
+            $caption = self::extractCaptionText($xml);
+        }
+        
+        return $caption;
+    }
 }
